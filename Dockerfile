@@ -1,15 +1,14 @@
 FROM python:3.11-slim-bookworm
 
+# Устанавливаем рабочую директорию внутри контейнера
 WORKDIR /app
 
-
-COPY requirements.txt .
-
-
-RUN pip install --no-cache-dir -r requirements.txt
-
-
+# Копируем все файлы из корня репозитория (AW1) в папку /app контейнера
 COPY . .
 
+# Насильно заставляем Python считать папку /app корнем для поиска модулей
+ENV PYTHONPATH=/app
 
+# Правильная команда запуска прямого файла (НЕ модуля)
 CMD ["python", "main.py"]
+
